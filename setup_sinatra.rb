@@ -23,6 +23,9 @@ File.open('Gemfile', "w") do |file|
   end
 end
 
+puts `bundle install`
+puts 'installing gem dependencies...'.colorize :blue
+
 puts "Creating basic project structure...".colorize :blue
 Dir.mkdir('lib')
 Dir.mkdir('spec')
