@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
+
 require 'rubygems'
 require 'fileutils'
 require 'colorize'
 
-# Install dependency that makes it easier to see what files were created
 puts `brew install tree`
 puts 'What are the names of the contributers?'
 author_names = gets.chomp
@@ -75,20 +75,26 @@ File.open('README.md', "w") do |file|
   file.write("* `ruby app.rb` to start the server\n")
   file.write("* `rspec` to test\n\n")
   file.write("### Technologies Used\n")
-  file.write(" (Add information here)")
+  file.write(" (Add information here)\n")
   file.write("### Legal\n")
   file.write("Copyright (c) 2015 **_{List of contribtors}_**\n\n")
   file.write("This software is licensed under the MIT license.\n\n")
   file.write("Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\n")
 end
 
-puts "Gemfile".colorize :blue
+puts "Gemfile\n".colorize :blue
 puts `cat Gemfile`
 
-puts "Layout.erb".colorize :blue
+puts "Layout.erb\n".colorize :blue
 puts `cat views/layout.erb`
 
-puts 'Full directory structure:'.colorize :blue
+puts "README.md\n".colorize :blue
+puts `cat README.md`
+
+puts "Full directory structure\n".colorize :blue
 puts `tree`
 
 puts "done".colorize :green
+
+puts 'launching atom...'.colorize :blue
+puts `atom .`
