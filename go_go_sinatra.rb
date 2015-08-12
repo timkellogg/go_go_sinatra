@@ -8,9 +8,9 @@ puts `brew install tree`
 puts 'What are the names of the contributers?'
 author_names = gets.chomp
 
-puts "This utility puts the file on the desktop by default\n".colorize :blue
-puts "Enter your current username".colorize :blue
-username = gets.chomp
+# puts "This utility puts the file on the desktop by default\n".colorize :blue
+# puts "Enter your current username".colorize :blue
+username = `whoami`.chomp
 Dir.chdir "/Users/#{username}/Desktop"
 
 puts "What do you want to call the project?"
