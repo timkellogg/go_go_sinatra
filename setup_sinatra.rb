@@ -16,13 +16,22 @@ Dir.chdir(dirname)
 puts "What gems would you like installed? Please put space between gems like 'sinatra capybara rspec'"
 gems_to_install = gets.chomp
 
+File.open('Gemfile', "w") do |file|
+  file.write("source('https://rubygems.org')\n\n")
+  gems_to_install.split(' ').each do |gem|
+    file.write("gem('#{gem}')\n")
+  end
+end
+
 puts "Creating basic project structure...".colorize :blue
 Dir.mkdir('lib')
 Dir.mkdir('spec')
 Dir.mkdir('public')
 Dir.chdir('public')
 puts `touch main.css`
-puts "done"
+Dir.chdir('..')
+
+puts "done".colorize :green
 
 # puts 'What gems do you want installed?'.colorize :blue
 # gems_to_install = gets.chomp
