@@ -3,6 +3,8 @@ require 'rubygems'
 require 'fileutils'
 require 'colorize'
 
+puts `brew install tree`
+
 puts "This utility puts the file on the desktop by default".colorize :blue
 puts "Enter your current username".colorize :blue
 username = gets.chomp
@@ -24,24 +26,45 @@ File.open('Gemfile', "w") do |file|
 end
 
 puts `bundle install`
-puts 'installing gem dependencies...'.colorize :blue
 
-puts "Creating basic project structure...".colorize :blue
 Dir.mkdir('lib')
 Dir.mkdir('spec')
+Dir.mkdir('views')
+Dir.chdir('views')
+File.open('layout.erb', 'w') do |file|
+  file.write("<html>\n")
+  file.write("\t<head>\n")
+  file.write("\t\t<title>#{dirname}</title>\n")
+  file.write("\t\t<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>\n")
+  file.write("\t\t<link rel='stylesheet' href='main.css'>\n")
+  file.write("\t</head>\n")
+  file.write("\t<body>\n")
+  file.write("\t\t<div class='container'>\n")
+  file.write("\t\t\t<%= yield %>\n")
+  file.write("\t\t</div>\n")
+  file.write("\t</body>\n")
+  file.write("</html>")
+end
+
+puts `touch index.erb`
+Dir.chdir('..')
 Dir.mkdir('public')
 Dir.chdir('public')
 puts `touch main.css`
 Dir.chdir('..')
 
-puts "done".colorize :green
+File.open('app.rb', "w") do |file|
+  file.write("require('sinatra')\n\n")
+  file.write("get('/') do\n")
+  file.write("erb(:index)\n")
+  file.write("end\n")
+end
 
-# puts 'What gems do you want installed?'.colorize :blue
-# gems_to_install = gets.chomp
-#
-# gems_to_install.each do |gem|
-#
-# end
-  # Ask what gems to use
-  # Run bundle
-# Create Directory Structure
+File.open('README.md', "w") do |file|
+  file.write()
+end
+
+puts 'Your directory structure:'
+puts `tree`
+
+puts "done".colorize :green
