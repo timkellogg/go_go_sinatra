@@ -4,6 +4,7 @@ require 'rubygems'
 require 'fileutils'
 require 'colorize'
 
+puts `gem install colorize`
 puts `brew install tree`
 puts 'What are the names of the contributers?'
 author_names = gets.chomp
@@ -16,10 +17,12 @@ Dir.mkdir(dirname) unless File.exists?(dirname)
 Dir.chdir(dirname)
 
 puts "What gems would you like installed? Please put space between gems like 'sinatra capybara rspec'"
+puts "[sinatra is installed by default]"
 gems_to_install = gets.chomp
 
 File.open('Gemfile', "w") do |file|
   file.write("source('https://rubygems.org')\n\n")
+  file.write("gem('sinatra')")
   gems_to_install.split(' ').each do |gem|
     file.write("gem('#{gem}')\n")
   end
@@ -56,7 +59,7 @@ Dir.chdir('..')
 File.open('app.rb', "w") do |file|
   file.write("require('sinatra')\n\n")
   file.write("get('/') do\n")
-  file.write("erb(\t:index)\n")
+  file.write("\terb(:index)\n")
   file.write("end\n")
 end
 
@@ -77,6 +80,15 @@ File.open('README.md', "w") do |file|
   file.write("Copyright (c) 2015 **_{List of contribtors}_**\n\n")
   file.write("This software is licensed under the MIT license.\n\n")
   file.write("Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\n")
+end
+
+puts "Initialize git repository y/n?"
+install_git = gets.chomp
+
+if install_git.downcase == 'y' || install_git.downcase == 'yes'
+  puts `git init`
+  puts `git add .`
+  puts `git commit -m "first commit"`
 end
 
 puts "Gemfile\n".underline.colorize :blue
