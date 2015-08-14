@@ -28,5 +28,3 @@ _It was inspired by my time at Epicodus_
 * Set the `$PATH` variable to include `gosinatra` by `cp new_name ~/bin/`
 * Run the script anywhere using `new_name`
 
-### Coming Up
-At some point in the near future, the code will be modularized and enabled to work as a global calling `gosinatra`
