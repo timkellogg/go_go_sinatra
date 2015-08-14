@@ -11,10 +11,22 @@ _It was inspired by my time at Epicodus_
 
 ### Setup Up
 
+
+##### Using locally
+
 * Download the repo
 * `cd` in the directory
 * Install the gems
 * `ruby go_go_sinatra`
+
+##### Installing and running as a global script (Advanced)
+
+* Download the repo
+* `cd` into the directory
+* Rename the file `new_name`
+* Change the permissions such as `chmod 755`
+* Set the `$PATH` variable to include `gosinatra` by `cp new_name ~/bin/`
+* Run the script anywhere using `new_name`
 
 ### Coming Up
 At some point in the near future, the code will be modularized and enabled to work as a global calling `gosinatra`
