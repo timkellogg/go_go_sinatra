@@ -24,7 +24,7 @@ gems_to_install = gets.chomp
 
 File.open('Gemfile', "w") do |file|
   file.write("source 'https://rubygems.org'\n\n")
-  file.write("gem 'sinatra' ")
+  file.write("gem 'sinatra'\n")
   gems_to_install.split(' ').each do |gem|
     file.write("gem '#{gem}'\n\n")
   end
