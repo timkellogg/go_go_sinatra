@@ -1,11 +1,13 @@
 #!/usr/bin/env ruby
 
+# Used to install dependencies first
+puts `gem install colorize`
+puts `brew install tree`
+
 require 'rubygems'
 require 'fileutils'
 require 'colorize'
 
-puts `gem install colorize`
-puts `brew install tree`
 puts 'What are the names of the contributers?'
 author_names = gets.chomp
 username     = `whoami`.chomp
@@ -21,10 +23,10 @@ puts "[sinatra is installed by default]"
 gems_to_install = gets.chomp
 
 File.open('Gemfile', "w") do |file|
-  file.write("source('https://rubygems.org')\n\n")
-  file.write("gem('sinatra')")
+  file.write("source 'https://rubygems.org'\n\n")
+  file.write("gem 'sinatra' ")
   gems_to_install.split(' ').each do |gem|
-    file.write("gem '#{gem}' \n")
+    file.write("gem '#{gem}'\n\n")
   end
 end
 
@@ -36,15 +38,18 @@ Dir.mkdir('views')
 Dir.chdir('views')
 File.open('layout.erb', 'w') do |file|
   file.write("<html>\n")
-  file.write("\t<head>\n")
+  file.write("\t<head lang='en'>\n")
   file.write("\t\t<title>#{dirname}</title>\n")
-  file.write("\t\t<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>\n")
-  file.write("\t\t<link rel='stylesheet' href='main.css'>\n")
+  file.write("\t\t<link rel='stylesheet' type='text/css' href='http://cdn.foundation5.zurb.com/foundation.css'>\n")
+  file.write("\t\t<script src='//code.jquery.com/jquery-1.11.3.min.js'></script>\n")
+  file.write("\t\t<script src='http://cdn.foundation5.zurb.com/foundation.js'></script>\n")
+  file.write("\t\t<link rel='stylesheet' type='text/css' href=\"<%= url('/main.css') %>\">\n")
   file.write("\t</head>\n")
   file.write("\t<body>\n")
-  file.write("\t\t<div class='container'>\n")
+  file.write("\t\t<div id='site-wrapper' class='container'>\n")
   file.write("\t\t\t<%= yield %>\n")
   file.write("\t\t</div>\n")
+  file.write("\t\t<script>\n\t\t\t$(document).foundation();\n\t\t</script>\n")
   file.write("\t</body>\n")
   file.write("</html>")
 end
